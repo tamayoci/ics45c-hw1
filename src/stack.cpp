@@ -9,7 +9,7 @@ int main()
     while (getline(cin, line))
     {
         push_all(stk, line);
-        pop_all(stk)
+        pop_all(stk);
     }
     return 0;
 }
