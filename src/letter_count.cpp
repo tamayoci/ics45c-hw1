@@ -2,7 +2,7 @@
 using namespace std;
 #include "letter_count.hpp"
 
-constexpr int N_CHARS = ('Z' - 'A' + 1);
+constexpr int N_CHARS = ('Z' - 'A' + 1);  // will be 26
 
 int main()
 {
