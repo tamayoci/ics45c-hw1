@@ -26,9 +26,12 @@ public:
             buf[_top] = c;
         }
     }
-    
+
     char pop()
     {
+        if (isEmpty())
+            return '@';
+
         char c = buf[_top];
         _top--;
         return c;
@@ -36,6 +39,9 @@ public:
 
     char top()
     {
+        if (isEmpty())
+            return '@';
+
         return buf[_top];
     }
 
@@ -46,15 +52,16 @@ public:
 
     bool isFull()
     {
-        return _top == STK_MAX -1;
+        return _top == STK_MAX - 1;
     }
 };
 
 void push_all(Stack & stk, string line)
 {
     for (char ch : line)
-        stk.push[ch];
+        stk.push(ch);
 }
+
 void pop_all(Stack & stk)
 {
     while (!stk.isEmpty())
