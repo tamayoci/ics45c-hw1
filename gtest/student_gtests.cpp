@@ -25,3 +25,52 @@ TEST(StackTests, PushThenTopSeesTheCharacter) {
 }
 
 // ADD YOUR TESTS HERE:
+
+TEST(StackTests, PopReturnsLastPushedCharacter) {
+    Stack stk;
+
+    stk.push('a');
+    stk.push('b');
+
+    EXPECT_EQ(stk.pop(), 'b');
+    EXPECT_EQ(stk.pop(), 'a');
+}
+
+TEST(StackTests, TopDoesNotRemoveCharacter) {
+    Stack stk;
+
+    stk.push('x');
+
+    EXPECT_EQ(stk.top(), 'x');
+    EXPECT_EQ(stk.top(), 'x');
+    EXPECT_EQ(stk.pop(), 'x');
+}
+
+TEST(StackTests, EmptyStackReturnsAtSign) {
+    Stack stk;
+
+    EXPECT_EQ(stk.pop(), '@');
+    EXPECT_EQ(stk.top(), '@');
+}
+
+TEST(StackTests, StackBecomesFull) {
+    Stack stk;
+
+    for (int i = 0; i < STK_MAX; ++i) {
+        stk.push('x');
+    }
+
+    EXPECT_TRUE(stk.isFull());
+}
+
+TEST(StackTests, CannotPushWhenFull) {
+    Stack stk;
+
+    for (int i = 0; i < STK_MAX; ++i) {
+        stk.push('x');
+    }
+
+    stk.push('y');
+
+    EXPECT_EQ(stk.top(), 'x');
+}

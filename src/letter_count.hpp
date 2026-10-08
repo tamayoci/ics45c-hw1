@@ -1,11 +1,15 @@
 #ifndef LETTER_COUNT_HPP
 #define LETTER_COUNT_HPP
+
 #include <iostream>
 #include <string>
 using namespace std;
 
 int char_to_index(char ch)
 {
+    if (ch >= 'a' && ch <= 'z')
+        ch = ch - 'a' + 'A';
+
     return ch - 'A';
 }
 
@@ -18,11 +22,11 @@ void count(string s, int counts[])
 {
     for (char ch : s)
     {
-        if (ch >= 'a' && ch <= 'z')
-            ch = ch - 'a' + 'A';
-
-        if (ch >= 'A' && ch <= 'Z')
+        if ((ch >= 'A' && ch <= 'Z') ||
+            (ch >= 'a' && ch <= 'z'))
+        {
             counts[char_to_index(ch)]++;
+        }
     }
 }
 
