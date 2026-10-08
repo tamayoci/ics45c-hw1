@@ -6,11 +6,14 @@ constexpr int N_CHARS = ('Z' - 'A' + 1);  // will be 26
 
 int main()
 {
-    string s;
     int counts[N_CHARS] = {0};
+    string s;
 
-    getline(cin, s);
-    count(s, counts);
+    while (getline(cin, s))
+    {
+        count(s, counts);
+    }
+
     print_counts(counts, N_CHARS);
 
     return 0;

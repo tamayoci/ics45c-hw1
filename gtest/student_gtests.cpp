@@ -74,3 +74,26 @@ TEST(StackTests, CannotPushWhenFull) {
 
     EXPECT_EQ(stk.top(), 'x');
 }
+
+TEST(StackTests, PushAndPopManyCharacters) {
+    Stack stk;
+
+    stk.push('a');
+    stk.push('b');
+    stk.push('c');
+    stk.push('d');
+    stk.push('e');
+
+    EXPECT_EQ(stk.top(), 'e');
+    EXPECT_EQ(stk.pop(), 'e');
+    EXPECT_EQ(stk.top(), 'd');
+    EXPECT_EQ(stk.pop(), 'd');
+    EXPECT_EQ(stk.top(), 'c');
+    EXPECT_EQ(stk.pop(), 'c');
+    EXPECT_EQ(stk.top(), 'b');
+    EXPECT_EQ(stk.pop(), 'b');
+    EXPECT_EQ(stk.top(), 'a');
+    EXPECT_EQ(stk.pop(), 'a');
+
+    EXPECT_TRUE(stk.isEmpty());
+}
