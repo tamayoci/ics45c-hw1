@@ -15,13 +15,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # better feedback and support. Not necessary but generally
 # good to have.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,undefined")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined")
 
 # Add knots main executable
 set(KNOT_SRC_FILES
   src/convert_knots.hpp
   src/convert_knots.cpp
 )
-project(convert_knots CXX)
+project(knot CXX)
 add_executable(${PROJECT_NAME} ${KNOT_SRC_FILES})
 
 # Add stack main executable
@@ -37,7 +39,7 @@ set(COUNT_SRC_FILES
   src/letter_count.hpp
   src/letter_count.cpp
 )
-project(letter_count CXX)
+project(count CXX)
 add_executable(${PROJECT_NAME} ${COUNT_SRC_FILES})
 
 # This is for optionally building GTest suites. If GTest
@@ -69,7 +71,11 @@ if (GTest_FOUND)
     #     #include "foo.hpp"
     # instead of having to write the cumbersome
     #     #include "../src/foo.hpp"
+    include_directories(${GTEST_INCLUDE_DIRS})
+    add_executable(${PROJECT_NAME} ${KNOT_GTEST_FILES})
     target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
+    target_compile_options(${PROJECT_NAME} PRIVATE -fsanitize=address -fsanitize=undefined)
+    target_link_options(${PROJECT_NAME} PRIVATE -fsanitize=address -fsanitize=undefined)
     target_link_libraries(${PROJECT_NAME} ${GTEST_LIBRARIES})
 
     # Stack Tests:
@@ -90,21 +96,14 @@ if (GTest_FOUND)
     #     #include "foo.hpp"
     # instead of having to write the cumbersome
     #     #include "../src/foo.hpp"
+    include_directories(${GTEST_INCLUDE_DIRS})
+    add_executable(${PROJECT_NAME} ${KNOT_GTEST_FILES})
     target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
+    target_compile_options(${PROJECT_NAME} PRIVATE -fsanitize=address -fsanitize=undefined)
+    target_link_options(${PROJECT_NAME} PRIVATE -fsanitize=address -fsanitize=undefined)
     target_link_libraries(${PROJECT_NAME} ${GTEST_LIBRARIES})
 
     # Letter Count Tests:
-    project(student_gtests CXX)
-    set(STUDENT_GTEST_FILES
-        gtest/gtestmain.cpp
-        gtest/student_gtests.cpp
-        src/stack.hpp
-    )
-    include_directories(${GTEST_INCLUDE_DIRS})
-    add_executable(${PROJECT_NAME} ${STUDENT_GTEST_FILES})
-    target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
-    target_link_libraries(${PROJECT_NAME} ${GTEST_LIBRARIES})
-
     project(count_gtests CXX)
 
     # If you add other test files, be sure to add them to
@@ -122,7 +121,11 @@ if (GTest_FOUND)
     #     #include "foo.hpp"
     # instead of having to write the cumbersome
     #     #include "../src/foo.hpp"
+    include_directories(${GTEST_INCLUDE_DIRS})
+    add_executable(${PROJECT_NAME} ${KNOT_GTEST_FILES})
     target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src)
+    target_compile_options(${PROJECT_NAME} PRIVATE -fsanitize=address -fsanitize=undefined)
+    target_link_options(${PROJECT_NAME} PRIVATE -fsanitize=address -fsanitize=undefined)
     target_link_libraries(${PROJECT_NAME} ${GTEST_LIBRARIES})
 endif()
 
